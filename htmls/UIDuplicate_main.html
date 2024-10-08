@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      tr:nth-child(even) {
+        background-color: #D6EEEE;
+      }
+    </style>
+  </head>
+
+  <script>
+    function doContinue() {
+      let delconfirm = 'Warning!!! This will delete all selected files.\n';
+      if (confirm(delconfirm) == true) {
+        getDeleteSelection()
+      }
+
+      else {
+        alert('you pressed no')
+      }
+    }
+    function doCancel() {
+      window.opener = self;
+      window.close();
+    }
+
+    function getDeleteSelection() {
+      var chk1 = document.getElementById('duplicate1').checked;
+      var chk2 = document.getElementById('duplicate2').checked;
+     var chk3 = document.getElementById('duplicate3').checked;
+    
+      alert(`${chk1} ${chk2} ${chk3}`)
+     
+    }
+  </script>
+  
+  <body>
+    <p>
+      Program returned below duplicate files. Select checkbox to delete.
+    </p>
+    <form>
+      <table>
+      <tr><td>FilePath</td><td> Delete</td></tr>
+      <tr><td>Path1   </td><td> <input type='checkbox' id='duplicate1' name='dup1' value='dup1'></td></tr>
+      <tr><td>Path2   </td><td> <input type='checkbox' id='duplicate2' name='dup2' value='dup2'></td></tr>
+      <tr><td>Path3   </td><td> <input type='checkbox' id='duplicate3' name='dup3' value='dup3'></td></tr>
+      </table>
+    </form>
+    </br>
+    <button type='button' name='cancel'   onclick='doCancel()'  >Cancel</button>
+    <button type='button' name='continue' onclick='doContinue()'>Continue</button>
+  </body>
+
+</html>
