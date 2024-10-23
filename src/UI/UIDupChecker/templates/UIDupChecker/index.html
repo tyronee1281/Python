@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <style>
@@ -14,7 +15,7 @@
     function doSubmit() {
       let delconfirm = 'Warning!!! This will delete all selected files.\n';
       if (confirm(delconfirm) == true) {
-        getDeleteSelection()
+        getDeleteSelections()
       }
 
       else {
@@ -26,25 +27,38 @@
       window.close();
     }
 
-    function getDeleteSelection() {
-      var chk1 = 'hello';
-    
-      alert(`${chk1}`)
+    function getDeleteSelections() {
+      let delCheckBoxes =  document.getElementsByName('deleteSelections')
+      let result = ""
+      for (i=0; i < delCheckBoxes.length; i++) {
+        if (delCheckBoxes[i].checked) {
+          result += delCheckBoxes[i].value + "\n";
+        }
+      }
+   
+      alert(result);
      
     }
   </script>
 <body>
-{% if lstDupFiles  %}
-  <table>
-    <tr><td>FilePath</td><td>Delete?</td></tr>
-    {% for recDup in lstDupFiles %}
-      <tr><td>{{ recDup}}</td><td><input type='checkbox' id='xx' name='yy' value='zz'></td</tr>
-    {% endfor %}
-  </table>
-  <button type='button' name='cancel' onclick='doCancel()'>Cancel</button>
-  <button type='button' name='submit' onclick='doSubmit()'>Submit</button>
-{% else %}
-  <p>No Duplicate Files Found.</p>
-{% endif %}
+ <p>
+   Program returned below duplicate files. Select checkbox to delete.
+ </p>
+ <form>
+   {% if lstDupFiles  %}
+     <table>
+       <tr><td>FilePath</td><td>Delete?</td></tr>
+       {% for recDup in lstDupFiles %}
+         <tr><td>{{ recDup }}</td><td><input type='checkbox' name='deleteSelections' value='{{ recDup }}'></td</tr>
+       {% endfor %}
+     </table>
+   </form>
+   </br>
+   <button type='button' name='cancel' onclick='doCancel()'>Cancel</button>
+   <button type='button' name='submit' onclick='doSubmit()'>Submit</button>
+ {% else %}
+   <p>No Duplicate Files Found.</p>
+ {% endif %}
+
 </body>
 </html>
